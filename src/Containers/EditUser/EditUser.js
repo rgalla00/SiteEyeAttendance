@@ -99,7 +99,7 @@ class EditUser extends React.Component {
               marginTop: "6%",
             }}
           >
-            <Typography component="h1" variant="h" style={{ color: "#3b4b70", margin: "20px" }}> 
+            <Typography component="h1" variant="h" style={{ color: "#191817", margin: "20px" }}> 
               Edit Details
             </Typography>
 
