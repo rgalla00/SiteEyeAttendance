@@ -19,13 +19,14 @@ export default class SignIn extends React.Component {
       email: "",
       password: "",
       success: false,
-      changed: false
+      changed: false,
+      varified: false
     };
   }
 
   componentDidMount() {
-    var { success, changed } = this.state;
-    this.redirect(success, changed);    
+    var { success, changed, verified } = this.state;
+    this.redirect(success, changed, verified);    
 
     //------------Old Approach-----------
     // firebaseApp.auth().onAuthStateChanged((user) => {
@@ -40,9 +41,14 @@ export default class SignIn extends React.Component {
     // });
   }
 
-  redirect = (success, changed) => {
+  redirect = (success, changed, verified) => {
     if (!changed) 
       return;
+
+    if (!verified) {
+      Swal.fire("Unverified Email", "The email you entered has not been verified! Check your spam...", "error");
+      return;
+    }
 
     if (success) {
       //TODO: send to correct page, based on type (Professor, Student, or Admin)
@@ -55,7 +61,7 @@ export default class SignIn extends React.Component {
 
   login = () => {
     const { email, password } = this.state;
-    var { success, changed } = this.state;
+    var { success, changed, verified } = this.state;
 
     //UAFS email validation 
     if (!this.isUafsEmail(email)) {
@@ -77,6 +83,9 @@ export default class SignIn extends React.Component {
       //Verification
       snap.forEach(function (data) {
         if (data.val().email === email && data.val().password === password) {
+          if (data.val().verified === "Y") 
+            verified = true;
+          
           localStorage.setItem("uid", data.key);
           success = true;
           changed = true;
@@ -87,7 +96,7 @@ export default class SignIn extends React.Component {
       });
     });
 
-    this.redirect(success, changed);    
+    this.redirect(success, changed, verified);    
 
     //------------Old Approach-----------
     // firebaseApp
