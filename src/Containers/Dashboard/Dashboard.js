@@ -132,7 +132,6 @@ class Dashbaord extends React.Component {
       });
   };
 
-
   post = () => {
     let {
       title,
@@ -168,24 +167,24 @@ class Dashbaord extends React.Component {
             });
             // console.log("Document successfully written!", res);
             Swal.fire(
-              "Post Created Successfully",
-              "You may Processed",
+              "Post created successfully!",
+              "You may proceed!",
               "success"
             );
           })
           .catch((error) => {
             console.error("Error writing document: ", error);
-            Swal.fire("Data not sent Succesfuly", "You may Processed", "error");
+            Swal.fire("Data not sent successfully...", "You may proceed!", "error");
           });
       } else {
         Swal.fire(
-          "Description is Missing",
-          "Please Write Description",
+          "Description is missing...",
+          "Please write a description...",
           "error"
         );
       }
     } else {
-      Swal.fire("Title is Missing", "Please Give Title to Post", "error");
+      Swal.fire("Title is missing!", "Please Give Title to Post", "error");
     }
   };
   render() {
@@ -201,7 +200,13 @@ class Dashbaord extends React.Component {
           signOut={() => this.signout()}
         />
 
-        <div className="heading">Manage Users</div>
+        <div className="heading"style={{
+                    textAlign: "center",
+                    padding: "20px 0",
+                    fontSize: "300%",
+          }}>Manage Users
+        </div>
+
         <div>
           {this.state.loader ? (
             <div>
