@@ -33,13 +33,23 @@ export default class SignUp extends React.Component {
 
   signup = () => {
     const { email, password, passwordconf, firstName, lastName, gender, contact, type } = this.state;
-    
+
     //All fields complete
     if (email === "" || password === "" || passwordconf === "" || firstName === "" || lastName === "" || gender === "" || contact === "") {
       Swal.fire({
         icon: "error",
         title: "Incomplete Form",
         text: "All fields must be filled out..."
+      });
+      return;
+    }
+
+    //Not a UAFS email
+    if (!this.isUafsEmail(email)) {
+      Swal.fire({
+        icon: "error",
+        title: "Incorrect Email",
+        text: "Email must be from a UAFS domain..."
       });
       return;
     }
@@ -69,8 +79,8 @@ export default class SignUp extends React.Component {
     const users = db.ref('users');
     const query = users.orderByChild('email').equalTo(email).limitToFirst(1);
 
-    query.on('value', function(snap) {
-      snap.forEach(function(data) {
+    query.on('value', function (snap) {
+      snap.forEach(function (data) {
         Swal.fire({
           icon: "error",
           title: "Email Taken",
@@ -82,7 +92,7 @@ export default class SignUp extends React.Component {
 
     //TODO: get type based on email
     //TODO: send email confirmation
-    
+
     //Create Account
     // firebaseApp.database().ref("users").push({
     //   firstName: this.firstName,
@@ -109,6 +119,11 @@ export default class SignUp extends React.Component {
     //this.props.history.push("/");
     return;
   };
+
+  isUafsEmail = (e) => {
+    var emailRe = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@(uafs.edu|g.uafs.edu)$/;
+    return emailRe.test(e);
+  }
 
   isPhoneNumber = (p) => {
     var phoneRe = /^[2-9]\d{2}[2-9]\d{2}\d{4}$/;
@@ -173,7 +188,7 @@ export default class SignUp extends React.Component {
                 id="passwordconf"
                 autoComplete="confirm-password"
                 onChange={(e) => this.setState({ passwordconf: e.target.value })}
-              />             
+              />
               <TextField
                 variant="outlined"
                 margin="normal"
