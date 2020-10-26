@@ -22,7 +22,6 @@ export default class SignUp extends React.Component {
       lastName: "",
       gender: "",
       contact: "",
-      id: "",
       type: ""
     };
   }
@@ -32,15 +31,31 @@ export default class SignUp extends React.Component {
   }
 
   signup = () => {
-    //const { email, password } = this.state;
+    const { email, password, passwordconf, firstName, lastName, gender, contact, type } = this.state;
 
+    //Passwords match
+    if (password != passwordconf) {
+      Swal.fire({
+        icon: "error",
+        title: "Password Mismatch",
+        text: "Confirm that passwords match each other!",
+      });
+      return;
+    }
+
+    //TODO: confirm email isnt present already
+    //TODO: get type based on email
+    //TODO: send email confirmation
+    
     //Create Account
     // firebaseApp.database().ref("users").push({
-    //   firstName: "Angie",
-    //   lastName: "John",
-    //   gender: "female",
-    //   email: "Angie@john.com",
-    //   contact: "+343454565789"
+    //   firstName: this.firstName,
+    //   lastName: this.lastName,
+    //   gender: this.gender,
+    //   email: this.email,
+    //   contact: this.contact,
+    //   password: this.password,
+    //   type: this.type
     // }).then((res) => {
     //   console.log("successful", res);
     // }).catch((error) => {
@@ -49,6 +64,7 @@ export default class SignUp extends React.Component {
 
     //Redirect to Login
     this.props.history.push("/");
+    return;
   };
 
   render() {
@@ -106,8 +122,8 @@ export default class SignUp extends React.Component {
                 label="Confirm Password"
                 type="password"
                 id="passwordconf"
-                autoComplete="current-password"
-                onChange={(e) => this.setState({ password: e.target.value })}
+                autoComplete="confirm-password"
+                onChange={(e) => this.setState({ passwordconf: e.target.value })}
               />             
               <TextField
                 variant="outlined"
