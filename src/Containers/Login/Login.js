@@ -17,16 +17,22 @@ export default class SignIn extends React.Component {
 
     this.state = {
       email: "",
-      password: ""
+      password: "",
+      success: false,
+      changed: false
     };
   }
 
   componentDidMount() {
+    var { success, changed } = this.state;
+    this.redirect(success, changed);    
+
+    //------------Old Approach-----------
     // firebaseApp.auth().onAuthStateChanged((user) => {
     //   if (user) {
     //     // User is signed in.
     //     //TODO: redirect to the right page (Admin, Professor, or Student)
-    //     this.props.history.push("/dashboard");
+    //     this.props.history.push("/dash");
     //   } else {
     //     // User is signed out.
     //     this.props.history.push("/");
@@ -34,19 +40,32 @@ export default class SignIn extends React.Component {
     // });
   }
 
+  redirect = (success, changed) => {
+    if (!changed) 
+      return;
+
+    if (success) {
+      //TODO: send to correct page, based on type (Professor, Student, or Admin)
+      this.props.history.push("/dash");
+    } else {
+      Swal.fire("Login Failure", "The email or password you entered is incorrect...", "error");
+      return;
+    }
+  }
+
   login = () => {
     const { email, password } = this.state;
-    var success = false;
+    var { success, changed } = this.state;
 
     //UAFS email validation 
-    // if (!this.isUafsEmail(email)) {
-    //   Swal.fire({
-    //     icon: "error",
-    //     title: "Incorrect Email",
-    //     text: "Email must be from a UAFS domain..."
-    //   });
-    //   return;
-    // }
+    if (!this.isUafsEmail(email)) {
+      Swal.fire({
+        icon: "error",
+        title: "Incorrect Email",
+        text: "Email must be from a UAFS domain..."
+      });
+      return;
+    }
 
     //TODO: encrypt/decrypt password
     //Email doesn't already exist confirmation
@@ -60,20 +79,17 @@ export default class SignIn extends React.Component {
         if (data.val().email === email && data.val().password === password) {
           localStorage.setItem("uid", data.key);
           success = true;
+          changed = true;
+        } else {
+          changed = true;
+          success = false;
         }
       });
     });
 
-    //Redirect
-    if (success) {
-      Swal.fire("Login Succesful", "You may proceed!", "success");
-      //TODO: send to correct page, based on type (Professor, Student, or Admin)
-      this.props.history.push("/dashboard");
-    } else {
-      Swal.fire("Login Failure", "The email or password you entered is incorrect...", "error");
-      return;
-    }
+    this.redirect(success, changed);    
 
+    //------------Old Approach-----------
     // firebaseApp
     //   .auth()
     //   .signInWithEmailAndPassword(email, password)
@@ -82,7 +98,7 @@ export default class SignIn extends React.Component {
     //     // console.log(res.user.uid)
     //     localStorage.setItem("uid", res.user.uid);
     //     Swal.fire("Login Succesful", "You may proceed!", "success");
-    //     this.props.history.push("/dashboard");
+    //     this.props.history.push("/dash");
     //   })
     //   .catch((error) => {
     //     var errorCode = error.code;
@@ -110,7 +126,7 @@ export default class SignIn extends React.Component {
       <div>
         <Navbar
           path={() => this.props.history.push("/")}
-          path1={() => this.props.history.push("/dashboard")}
+          path1={() => this.props.history.push("/dash")}
           path2={() => this.props.history.push("/signup")}
           loginValue={this.state.loginValue}
         />

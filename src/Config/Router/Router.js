@@ -1,4 +1,3 @@
-import { Dashboard } from "@material-ui/icons";
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Login, SignUp, Dash, EditPost } from "../../Containers";
@@ -9,7 +8,7 @@ function MainRoute() {
       <Switch>
         <Route exact path="/" component={Login} />
         <Route path="/signup" component={SignUp} />
-        <Route path="/dashboard" component={Dash} />
+        <Route path="/dash" component={Dash} />
         <Route path="/edit-user" component={EditPost} />
       </Switch>
     </Router>

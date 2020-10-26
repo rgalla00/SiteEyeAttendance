@@ -39,17 +39,17 @@ class Dash extends React.Component {
   }
 
   componentDidMount() {
-    firebaseApp.auth().onAuthStateChanged((user) => {
-      if (user) {
-        // console.log("user =>>>>", user.uid);
-        this.setState({
-          authoruid: user.uid,
-        });
-        this.props.history.push("/dash");
-      } else {
-        this.props.history.push("/");
-      }
-    });
+    // firebaseApp.auth().onAuthStateChanged((user) => {
+    //   if (user) {
+    //     // console.log("user =>>>>", user.uid);
+    //     this.setState({
+    //       authoruid: user.uid,
+    //     });
+    //     this.props.history.push("/dash");
+    //   } else {
+    //     this.props.history.push("/");
+    //   }
+    // });
 
     let { posts } = this.state;
 
@@ -68,21 +68,23 @@ class Dash extends React.Component {
   }
 
   signout = () => {
-    firebaseApp
-      .auth()
-      .signOut()
-      .then(function () {
-        // Sign-out successful.
-        this.props.history.push("/");
-        Swal.fire({
-          icon: "success",
-          title: "Logout Successful",
-          text: "Something went wrong!",
-        });
-      })
-      .catch(function (error) {
-        // An error happened.
-      });
+    localStorage.setItem("uid", "");
+    this.props.history.push("/");
+    // firebaseApp
+    //   .auth()
+    //   .signOut()
+    //   .then(function () {
+    //     // Sign-out successful.
+    //     this.props.history.push("/");
+    //     Swal.fire({
+    //       icon: "success",
+    //       title: "Logout Successful",
+    //       text: "Something went wrong!",
+    //     });
+    //   })
+    //   .catch(function (error) {
+    //     // An error happened.
+    //   });
   };
 
   delete = (v, i) => {
@@ -160,7 +162,7 @@ class Dash extends React.Component {
             fileName: fileName,
           })
           .then((res) => {
-            this.props.history.push("/dashboard");
+            this.props.history.push("/dash");
             this.setState({
               title: " ",
               description: " ",
@@ -194,7 +196,7 @@ class Dash extends React.Component {
       <div className="profile">
         <Navbar
           path={() => this.props.history.push("/")}
-          path1={() => this.props.history.push("/dashboard")}
+          path1={() => this.props.history.push("/dash")}
           home={() => this.props.history.push("/")}
           loginValue="true"
           signOut={() => this.signout()}
