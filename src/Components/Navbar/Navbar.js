@@ -163,7 +163,7 @@ export default function PrimarySearchAppBar(props) {
       <AppBar
         position="static"
         elevation="1"
-        style={{ backgroundColor: "#20B2AA" }}>
+        style={{ backgroundColor: "#84583b" }}>
 
         <Toolbar>
           <Typography variant="h6" noWrap className={classes.title}>

@@ -264,7 +264,7 @@ class Dash extends React.Component {
                                   >
                                     Edit
                                   </span>
-                                  <MdDelete color="red" size={20} />
+                                  <MdDelete color="#b55039" size={20} />
                                   <span
                                     className="delete-btn"
                                     onClick={() => this.delete(v, i)}

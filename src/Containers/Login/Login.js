@@ -139,7 +139,7 @@ export default class SignIn extends React.Component {
   render() {
     return (
       <div>
-        <Navbar
+        <Navbar 
           path={() => this.props.history.push("/")}
           path1={() => this.props.history.push("/dash")}
           path2={() => this.props.history.push("/signup")}
@@ -150,10 +150,10 @@ export default class SignIn extends React.Component {
           <div
             style={{
               textAlign: "center",
-              marginTop: "10%",
+              marginTop: "10%"
             }}
           >
-            <Avatar className="avatar" style={{ backgroundColor: "red" }}>
+            <Avatar className="avatar" style={{ backgroundColor: "#3b4b70" }}>
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
@@ -190,7 +190,7 @@ export default class SignIn extends React.Component {
                 type="button"
                 fullWidth
                 variant="contained"
-                style={{ color: "#fff", backgroundColor: "#4db6ac" }}
+                style={{ color: "#fff", backgroundColor: "#3b4b70" }}
                 onClick={() => this.login()}
               >
                 Sign In
@@ -201,7 +201,7 @@ export default class SignIn extends React.Component {
                 type="button"
                 fullWidth
                 variant="contained"
-                style={{ color: "#fff", backgroundColor: "#4db6ac" }}
+                style={{ color: "#fff", backgroundColor: "#3b4b70" }}
                 onClick={() => this.signup()}
               >
                 Sign Up
