@@ -23,7 +23,8 @@ class EditUser extends React.Component {
       gender: data.gender,
       contact: data.contact,
       id: data.id,
-      type: data.type
+      type: data.type,
+      prefName: data.prefName
     });
   }
 
@@ -35,7 +36,8 @@ class EditUser extends React.Component {
       contact,
       gender,
       id,
-      type
+      type,
+      prefName
     } = this.state;
 
     firebaseApp.database().ref("/users/" + id).set({
@@ -44,7 +46,8 @@ class EditUser extends React.Component {
       lastName,
       contact,
       gender,
-      type
+      type,
+      prefName
     }).then(() => {
       console.log("success")
       this.props.history.push("/dashboard");
@@ -96,6 +99,25 @@ class EditUser extends React.Component {
                     }
                   />
                 </Grid>
+
+                <Grid item xs={12}>
+                  <TextField
+                    autoComplete="pname"
+                    name="prefName"
+                    variant="outlined"
+                    fullWidth
+                    id="prefName"
+                    label="Preferred Name"
+                    value={this.state.prefName}
+                    onChange={(e) =>
+                      this.setState({
+                        prefName: e.target.value,
+                      })
+                    }
+                  />
+                </Grid>
+
+                <Grid container spacing={2}></Grid>
                 <Grid item xs={12}>
                   <TextField
                     variant="outlined"
@@ -149,6 +171,7 @@ class EditUser extends React.Component {
 
                 <Grid item xs={12}>
                   <TextField
+                    disabled
                     variant="outlined"
                     fullWidth
                     id="type"

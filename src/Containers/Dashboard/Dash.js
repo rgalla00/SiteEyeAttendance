@@ -189,6 +189,7 @@ class Dash extends React.Component {
       Swal.fire("Title is missing!", "Please Give Title to Post", "error");
     }
   };
+
   render() {
     console.log(this.state.posts);
 
@@ -240,7 +241,7 @@ class Dash extends React.Component {
                                 &nbsp; &nbsp;
                                 <FaUserTag size={15} />
                                 <span className="text">
-                                  {v.firstName} {v.lastName}
+                                {v.prefName === "" ? v.firstName : v.prefName} {v.lastName}
                                 </span>
                               </Grid>
 
