@@ -42,7 +42,7 @@ export default class SignIn extends React.Component {
          // console.log("Document successfully written!", res);
          // console.log(res.user.uid)
          localStorage.setItem("uid", res.user.uid);
-         Swal.fire("Login Succesfull", "You may Processed", "success");
+         Swal.fire("Login Succesful", "You may proceed!", "success");
         this.props.history.push("/dashboard");
        })
        .catch((error) => {
