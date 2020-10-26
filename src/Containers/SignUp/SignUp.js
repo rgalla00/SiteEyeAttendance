@@ -33,7 +33,14 @@ export default class SignUp extends React.Component {
   signup = () => {
     const { email, password, passwordconf, firstName, lastName, gender, contact, type } = this.state;
     //All fields complete
-
+    if (email === "" || password === "" || passwordconf === "" || firstName === "" || lastName === "" || gender === "" || contact === "") {
+      Swal.fire({
+        icon: "error",
+        title: "Incomplete Form",
+        text: "All fields must be filled out...",
+      });
+      return;
+    }
 
     //Passwords match
     if (password != passwordconf) {
@@ -64,6 +71,7 @@ export default class SignUp extends React.Component {
     //   console.log("unsuccessful", error);
     // })
 
+    //Verify Email
     Swal.fire({
       icon: "success",
       title: "Email Confirmation",
