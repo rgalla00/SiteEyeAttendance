@@ -10,6 +10,7 @@ import Container from "@material-ui/core/Container";
 import { Navbar } from "../../Components";
 import Swal from "sweetalert2";
 import "./Login.css";
+import md5 from 'crypto-js/md5';
 
 export default class SignIn extends React.Component {
   constructor() {
@@ -20,13 +21,13 @@ export default class SignIn extends React.Component {
       password: "",
       success: false,
       changed: false,
-      varified: false
+      verified: false
     };
   }
 
   componentDidMount() {
     var { success, changed, verified } = this.state;
-    this.redirect(success, changed, verified);    
+    this.redirect(success, changed, verified);
 
     //------------Old Approach-----------
     // firebaseApp.auth().onAuthStateChanged((user) => {
@@ -42,7 +43,7 @@ export default class SignIn extends React.Component {
   }
 
   redirect = (success, changed, verified) => {
-    if (!changed) 
+    if (!changed)
       return;
 
     if (!verified) {
@@ -80,12 +81,17 @@ export default class SignIn extends React.Component {
     const query = users.orderByChild('email').equalTo(email).limitToFirst(1);
 
     query.on('value', function (snap) {
+      
       //Verification
       snap.forEach(function (data) {
-        if (data.val().email === email && data.val().password === password) {
-          if (data.val().verified === "Y") 
+        var user = data.val();
+        var encryptedPass = md5(password);
+
+        if (user.email === email && String(user.password) === String(encryptedPass)) {
+          if (user.verified === "Y") {
             verified = true;
-          
+          }
+
           localStorage.setItem("uid", data.key);
           success = true;
           changed = true;
@@ -96,7 +102,7 @@ export default class SignIn extends React.Component {
       });
     });
 
-    this.redirect(success, changed, verified);    
+    this.redirect(success, changed, verified);
 
     //------------Old Approach-----------
     // firebaseApp

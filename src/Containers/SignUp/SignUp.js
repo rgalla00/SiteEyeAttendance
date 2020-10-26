@@ -10,6 +10,7 @@ import Container from "@material-ui/core/Container";
 import { Navbar } from "../../Components";
 import Swal from "sweetalert2";
 import "./SignUp.css";
+import md5 from 'crypto-js/md5';
 
 export default class SignUp extends React.Component {
   constructor() {
@@ -65,7 +66,7 @@ export default class SignUp extends React.Component {
       Swal.fire({
         icon: "error",
         title: "Incorrect Phone Number",
-        text: "Number entered is not a phone number..."
+        text: "Number entered is not a phone number..." + contact
       });
       return;
     }
@@ -99,21 +100,22 @@ export default class SignUp extends React.Component {
     //TODO: send email confirmation
 
     //Create Account
-    // firebaseApp.database().ref("users").push({
-    //   firstName: firstName,
-    //   lastName: lastName,
-    //   gender: gender,
-    //   email: email,
-    //   prefName: prefName,
-    //   contact: contact,
-    //   password: password,
-    //   type: type,
-    //   verified: "N"
-    // }).then((res) => {
-    //   console.log("successful", res);
-    // }).catch((error) => {
-    //   console.log("unsuccessful", error);
-    // })
+    var encryptedPass = md5(password);
+    firebaseApp.database().ref("users").push({
+      firstName: firstName,
+      lastName: lastName,
+      gender: gender,
+      email: email,
+      prefName: prefName,
+      contact: contact,
+      password: String(encryptedPass),
+      type: type,
+      verified: "N"
+    }).then((res) => {
+      console.log("successful", res);
+    }).catch((error) => {
+      console.log("unsuccessful", error);
+    })
 
     //Verify email
     // Swal.fire({
@@ -123,7 +125,7 @@ export default class SignUp extends React.Component {
     // });
 
     //Redirect to Login
-    //this.props.history.push("/");
+    this.props.history.push("/");
     return;
   };
 
@@ -133,9 +135,8 @@ export default class SignUp extends React.Component {
   }
 
   isPhoneNumber = (p) => {
-    var phoneRe = /^[2-9]\d{2}[2-9]\d{2}\d{4}$/;
-    var digits = p.replace(/\D/g, "");
-    return phoneRe.test(digits);
+    var phoneRe =/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
+    return phoneRe.test(p);
   }
 
   render() {
@@ -220,7 +221,7 @@ export default class SignUp extends React.Component {
               />
               <TextField
                 variant="outlined"
-                margin="normal"                
+                margin="normal"
                 fullWidth
                 id="prefName"
                 label="Preferred Name"
