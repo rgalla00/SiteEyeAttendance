@@ -22,7 +22,8 @@ class EditUser extends React.Component {
       email: data.email,
       gender: data.gender,
       contact: data.contact,
-      id: data.id
+      id: data.id,
+      type: data.type
     });
   }
   updateUser = () => {
@@ -32,7 +33,8 @@ class EditUser extends React.Component {
       lastName,
       contact,
       gender,
-      id
+      id,
+      type
     } = this.state;
 
     firebaseApp.database().ref("/users/" + id).set({
@@ -41,6 +43,7 @@ class EditUser extends React.Component {
       lastName,
       contact,
       gender,
+      type
     }).then( ()=> {
       console.log("success")
       this.props.history.push("/dashboard");
@@ -139,6 +142,22 @@ class EditUser extends React.Component {
                     onChange={(e) =>
                       this.setState({
                         gender: e.target.value,
+                      })
+                    }
+                  />
+                </Grid>
+
+                <Grid item xs={12}>
+                  <TextField
+                    variant="outlined"
+                    fullWidth
+                    id="type"
+                    label="Type"
+                    name="type"
+                    value={this.state.type}
+                    onChange={(e) =>
+                      this.setState({
+                        type: e.target.value,
                       })
                     }
                   />
