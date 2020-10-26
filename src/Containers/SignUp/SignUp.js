@@ -10,6 +10,7 @@ import Container from "@material-ui/core/Container";
 import { Navbar } from "../../Components";
 import Swal from "sweetalert2";
 import "./SignUp.css";
+import { queryByTestId } from "@testing-library/react";
 
 export default class SignUp extends React.Component {
   constructor() {
@@ -32,12 +33,13 @@ export default class SignUp extends React.Component {
 
   signup = () => {
     const { email, password, passwordconf, firstName, lastName, gender, contact, type } = this.state;
+    
     //All fields complete
     if (email === "" || password === "" || passwordconf === "" || firstName === "" || lastName === "" || gender === "" || contact === "") {
       Swal.fire({
         icon: "error",
         title: "Incomplete Form",
-        text: "All fields must be filled out...",
+        text: "All fields must be filled out..."
       });
       return;
     }
@@ -47,12 +49,27 @@ export default class SignUp extends React.Component {
       Swal.fire({
         icon: "error",
         title: "Password Mismatch",
-        text: "Confirm that passwords match each other!",
+        text: "Confirm that passwords match each other!"
       });
       return;
     }
 
-    //TODO: confirm email isnt present already
+    //Email doesn't already exist confirmation
+    const db = firebaseApp.database();
+    const users = db.ref('users');
+    const query = users.orderByChild('email').equalTo(email).limitToFirst(1);
+
+    query.on('value', function(snap) {
+      snap.forEach(function(data) {
+        Swal.fire({
+          icon: "error",
+          title: "Email Taken",
+          text: "This email is already in use!"
+        });
+      });
+      return;
+    });
+
     //TODO: get type based on email
     //TODO: send email confirmation
     
@@ -71,15 +88,15 @@ export default class SignUp extends React.Component {
     //   console.log("unsuccessful", error);
     // })
 
-    //Verify Email
-    Swal.fire({
-      icon: "success",
-      title: "Email Confirmation",
-      text: "Verify the email, by clicking the link that was sent.",
-    });
+    //Verify email
+    // Swal.fire({
+    //   icon: "success",
+    //   title: "Email Confirmation",
+    //   text: "Verify the email, by clicking the link that was sent."
+    // });
 
     //Redirect to Login
-    this.props.history.push("/");
+    //this.props.history.push("/");
     return;
   };
 
