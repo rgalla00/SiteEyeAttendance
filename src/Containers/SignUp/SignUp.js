@@ -32,6 +32,8 @@ export default class SignUp extends React.Component {
 
   signup = () => {
     const { email, password, passwordconf, firstName, lastName, gender, contact, type } = this.state;
+    //All fields complete
+
 
     //Passwords match
     if (password != passwordconf) {
@@ -61,6 +63,12 @@ export default class SignUp extends React.Component {
     // }).catch((error) => {
     //   console.log("unsuccessful", error);
     // })
+
+    Swal.fire({
+      icon: "success",
+      title: "Email Confirmation",
+      text: "Verify the email, by clicking the link that was sent.",
+    });
 
     //Redirect to Login
     this.props.history.push("/");
