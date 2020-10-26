@@ -44,6 +44,16 @@ export default class SignUp extends React.Component {
       return;
     }
 
+    //Not a phone number
+    if (!this.isPhoneNumber(contact)) {
+      Swal.fire({
+        icon: "error",
+        title: "Incorrect Phone Number",
+        text: "Number entered is not a phone number..."
+      });
+      return;
+    }
+
     //Passwords match
     if (password != passwordconf) {
       Swal.fire({
@@ -99,6 +109,12 @@ export default class SignUp extends React.Component {
     //this.props.history.push("/");
     return;
   };
+
+  isPhoneNumber = (p) => {
+    var phoneRe = /^[2-9]\d{2}[2-9]\d{2}\d{4}$/;
+    var digits = p.replace(/\D/g, "");
+    return phoneRe.test(digits);
+  }
 
   render() {
     return (
