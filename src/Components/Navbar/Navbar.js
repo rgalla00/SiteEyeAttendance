@@ -166,7 +166,7 @@ export default function PrimarySearchAppBar(props) {
         style={{ backgroundColor: "#20B2AA" }}>
 
         <Toolbar>
-          <Typography variant="h6" className={classes.title}>
+          <Typography variant="h6" noWrap className={classes.title}>
             SiteEye Attendance
           </Typography>
 
