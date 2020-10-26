@@ -14,10 +14,17 @@ import "./SignUp.css";
 export default class SignUp extends React.Component {
   constructor() {
     super();
-    // this.state = {
-    //   email: "",
-    //   password: "",
-    // };
+    this.state = {
+      email: "",
+      password: "",
+      passwordconf: "",
+      firstName: "",
+      lastName: "",
+      gender: "",
+      contact: "",
+      id: "",
+      type: ""
+    };
   }
 
   componentDidMount() {
@@ -49,8 +56,6 @@ export default class SignUp extends React.Component {
       <div>
         <Navbar
           path={() => this.props.history.push("/")}
-          //path1={() => this.props.history.push("/login")}
-          //loginValue={this.state.loginValue}
         />
 
         <Container component="main" maxWidth="xs">
@@ -103,6 +108,50 @@ export default class SignUp extends React.Component {
                 id="passwordconf"
                 autoComplete="current-password"
                 onChange={(e) => this.setState({ password: e.target.value })}
+              />             
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="firstName"
+                label="First Name"
+                name="firstName"
+                autoComplete="firstName"
+                onChange={(e) => this.setState({ firstName: e.target.value })}
+              />
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="lastName"
+                label="Last Name"
+                name="lastName"
+                autoComplete="lastName"
+                onChange={(e) => this.setState({ lastName: e.target.value })}
+              />
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="gender"
+                label="Gender"
+                name="gender"
+                autoComplete="gender"
+                onChange={(e) => this.setState({ gender: e.target.value })}
+              />
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="contact"
+                label="Phone Number"
+                name="contact"
+                autoComplete="contact"
+                onChange={(e) => this.setState({ contact: e.target.value })}
               />
               <br />
               <br />
