@@ -24,7 +24,8 @@ export default class Verification extends React.Component {
       gender: "",
       contact: "",
       type: "",
-      verified: "N"
+      verified: "N",
+      password: ""
     };
   }
 
@@ -47,7 +48,8 @@ export default class Verification extends React.Component {
       id,
       type,
       prefName,
-      verified
+      verified,
+      password
     } = this.state;
     var success = false;
     var uid = "";
@@ -83,6 +85,7 @@ export default class Verification extends React.Component {
           contact = user.contact;
           gender = user.gender;
           type = user.type;
+          password = user.password;
           verified = "Y";
         } 
       });
@@ -106,7 +109,8 @@ export default class Verification extends React.Component {
       gender,
       type,
       prefName,
-      verified
+      verified,
+      password
     }).then(() => {
       console.log("success")
       this.props.history.push("/");

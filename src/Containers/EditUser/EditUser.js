@@ -25,7 +25,8 @@ class EditUser extends React.Component {
       id: data.id,
       type: data.type,
       prefName: data.prefName,
-      verified: data.verified
+      verified: data.verified,
+      password: data.password
     });
   }
 
@@ -39,7 +40,8 @@ class EditUser extends React.Component {
       id,
       type,
       prefName,
-      verified
+      verified,
+      password
     } = this.state;
 
     firebaseApp.database().ref("/users/" + id).set({
@@ -50,7 +52,8 @@ class EditUser extends React.Component {
       gender,
       type,
       prefName,
-      verified
+      verified,
+      password
     }).then(() => {
       console.log("success")
       this.props.history.push("/dashboard");

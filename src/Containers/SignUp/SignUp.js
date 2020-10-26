@@ -11,6 +11,7 @@ import { Navbar } from "../../Components";
 import Swal from "sweetalert2";
 import "./SignUp.css";
 import md5 from 'crypto-js/md5';
+import emailjs from 'emailjs-com';
 
 export default class SignUp extends React.Component {
   constructor() {
@@ -30,6 +31,31 @@ export default class SignUp extends React.Component {
 
   componentDidMount() {
     //this.props.history.push("/");
+  }
+
+  sendEmail = (name, email) => {
+    var parms = {
+      name: name,
+      message: "Link: http://localhost:3000/verify",
+      email: email
+    };
+
+    emailjs.send('gmail', 'default_template', parms, 'user_f6siPapHd0qTXr5FR7JCi') 
+    .then(function (response) {
+      Swal.fire({
+        icon: "success",
+        title: "Email Confirmation",
+        text: "Verify the email, by clicking the link that was sent."
+      });
+      return;
+    }, function (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Email Not Sent",
+        text: "Whoops..."
+      });
+      return;
+    });
   }
 
   signup = () => {
@@ -97,8 +123,6 @@ export default class SignUp extends React.Component {
       return;
     });
 
-    //TODO: send email confirmation
-
     //Create Account
     var encryptedPass = md5(password);
     firebaseApp.database().ref("users").push({
@@ -118,15 +142,15 @@ export default class SignUp extends React.Component {
     })
 
     //Verify email
-    // Swal.fire({
-    //   icon: "success",
-    //   title: "Email Confirmation",
-    //   text: "Verify the email, by clicking the link that was sent."
-    // });
+    var name = "";
+    if (prefName === "") 
+      name = firstName + " " + lastName;
+    else 
+      name = prefName + " " + lastName;
+    this.sendEmail(name, email);
 
     //Redirect to Login
-    //this.props.history.push("/");
-    this.props.history.push("/verify");
+    this.props.history.push("/");
     return;
   };
 
