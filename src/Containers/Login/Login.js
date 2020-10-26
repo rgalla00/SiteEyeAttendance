@@ -74,7 +74,6 @@ export default class SignIn extends React.Component {
       return;
     }
 
-    //TODO: encrypt/decrypt password
     //Email doesn't already exist confirmation
     const db = firebaseApp.database();
     const users = db.ref('users');

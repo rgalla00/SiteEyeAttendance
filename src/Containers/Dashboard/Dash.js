@@ -222,7 +222,7 @@ class Dash extends React.Component {
                     fontSize: "300%",
                   }}
                 >
-                  Data is Not Available
+                  Data Not Available
                 </div>
               ) : (
                 <Container>

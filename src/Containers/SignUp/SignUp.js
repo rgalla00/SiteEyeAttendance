@@ -125,7 +125,8 @@ export default class SignUp extends React.Component {
     // });
 
     //Redirect to Login
-    this.props.history.push("/");
+    //this.props.history.push("/");
+    this.props.history.push("/verify");
     return;
   };
 

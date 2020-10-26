@@ -24,7 +24,8 @@ class EditUser extends React.Component {
       contact: data.contact,
       id: data.id,
       type: data.type,
-      prefName: data.prefName
+      prefName: data.prefName,
+      verified: data.verified
     });
   }
 
@@ -37,7 +38,8 @@ class EditUser extends React.Component {
       gender,
       id,
       type,
-      prefName
+      prefName,
+      verified
     } = this.state;
 
     firebaseApp.database().ref("/users/" + id).set({
@@ -47,16 +49,16 @@ class EditUser extends React.Component {
       contact,
       gender,
       type,
-      prefName
+      prefName,
+      verified
     }).then(() => {
       console.log("success")
       this.props.history.push("/dashboard");
     })
-      .catch(function (error) {
-        // An error happened.
-        console.log("errorrrrr", error.message)
-      });
-
+    .catch(function (error) {
+      // An error happened.
+      console.log("error", error.message)
+    });
   };
 
   signout = () => {
@@ -99,7 +101,7 @@ class EditUser extends React.Component {
               marginTop: "6%",
             }}
           >
-            <Typography component="h1" variant="h" style={{ color: "#191817", margin: "20px" }}> 
+            <Typography component="h1" variant="h" style={{ color: "#191817", margin: "20px" }}>
               Edit Details
             </Typography>
 
