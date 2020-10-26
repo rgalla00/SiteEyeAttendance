@@ -100,13 +100,13 @@ export default class SignUp extends React.Component {
 
     //Create Account
     // firebaseApp.database().ref("users").push({
-    //   firstName: this.firstName,
-    //   lastName: this.lastName,
-    //   gender: this.gender,
-    //   email: this.email,
-    //   contact: this.contact,
-    //   password: this.password,
-    //   type: this.type
+    //   firstName: firstName,
+    //   lastName: lastName,
+    //   gender: gender,
+    //   email: email,
+    //   contact: contact,
+    //   password: password,
+    //   type: type
     // }).then((res) => {
     //   console.log("successful", res);
     // }).catch((error) => {
