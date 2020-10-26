@@ -58,6 +58,27 @@ class EditUser extends React.Component {
       });
 
   };
+
+  signout = () => {
+    localStorage.setItem("uid", "");
+    this.props.history.push("/");
+    // firebaseApp
+    //   .auth()
+    //   .signOut()
+    //   .then(function () {
+    //     // Sign-out successful.
+    //     this.props.history.push("/");
+    //     Swal.fire({
+    //       icon: "success",
+    //       title: "Logout Successful",
+    //       text: "Something went wrong!",
+    //     });
+    //   })
+    //   .catch(function (error) {
+    //     // An error happened.
+    //   });
+  };
+
   render() {
     console.log(this.props);
     return (
@@ -78,9 +99,10 @@ class EditUser extends React.Component {
               marginTop: "6%",
             }}
           >
-            <Typography component="h1" variant="h">
+            <Typography component="h1" variant="h" style={{ color: "#3b4b70", margin: "20px" }}> 
               Edit Details
             </Typography>
+
             <form className="form" noValidate>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
@@ -209,7 +231,7 @@ class EditUser extends React.Component {
                     type="button"
                     fullWidth
                     variant="contained"
-                    style={{ color: "#fff", backgroundColor: "#4db6ac" }}
+                    style={{ color: "#fff", backgroundColor: "#3b4b70" }}
                     onClick={() => this.updateUser()}
                   >
                     Update User
