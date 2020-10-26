@@ -34,6 +34,17 @@ export default class SignIn extends React.Component {
 
   login = () => {
     const { email, password } = this.state;
+
+    //UAFS email validation 
+    if (!this.isUafsEmail(email)) {
+      Swal.fire({
+        icon: "error",
+        title: "Incorrect Email",
+        text: "Email must be from a UAFS domain..."
+      });
+      return;
+    }
+
     firebaseApp
       .auth()
       .signInWithEmailAndPassword(email, password)
@@ -72,6 +83,11 @@ export default class SignIn extends React.Component {
   signup = () => {
     this.props.history.push("/signup");
   };
+
+  isUafsEmail = (e) => {
+    var emailRe = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@(uafs.edu|g.uafs.edu)$/;
+    return emailRe.test(e);
+  }
 
   render() {
     return (
