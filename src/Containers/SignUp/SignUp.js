@@ -20,6 +20,7 @@ export default class SignUp extends React.Component {
       passwordconf: "",
       firstName: "",
       lastName: "",
+      prefName: "",
       gender: "",
       contact: "",
       type: ""
@@ -31,7 +32,7 @@ export default class SignUp extends React.Component {
   }
 
   signup = () => {
-    const { email, password, passwordconf, firstName, lastName, gender, contact } = this.state;
+    const { email, password, passwordconf, firstName, lastName, prefName, gender, contact } = this.state;
     var { type } = this.state.type;
 
     //All fields complete
@@ -39,7 +40,7 @@ export default class SignUp extends React.Component {
       Swal.fire({
         icon: "error",
         title: "Incomplete Form",
-        text: "All fields must be filled out..."
+        text: "All required(*) fields must be filled out..."
       });
       return;
     }
@@ -103,6 +104,7 @@ export default class SignUp extends React.Component {
     //   lastName: lastName,
     //   gender: gender,
     //   email: email,
+    //   prefName: prefName,
     //   contact: contact,
     //   password: password,
     //   type: type,
@@ -215,6 +217,16 @@ export default class SignUp extends React.Component {
                 name="lastName"
                 autoComplete="lastName"
                 onChange={(e) => this.setState({ lastName: e.target.value })}
+              />
+              <TextField
+                variant="outlined"
+                margin="normal"                
+                fullWidth
+                id="prefName"
+                label="Preferred Name"
+                name="prefName"
+                autoComplete="prefName"
+                onChange={(e) => this.setState({ prefName: e.target.value })}
               />
               <TextField
                 variant="outlined"
