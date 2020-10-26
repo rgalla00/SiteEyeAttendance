@@ -17,7 +17,7 @@ class EditUser extends React.Component {
   componentDidMount() {
     let data = this.props.location.state;
     this.setState({
-     firstName: data.firstName,
+      firstName: data.firstName,
       lastName: data.lastName,
       email: data.email,
       gender: data.gender,
@@ -26,6 +26,7 @@ class EditUser extends React.Component {
       type: data.type
     });
   }
+
   updateUser = () => {
     const {
       email,
@@ -44,15 +45,14 @@ class EditUser extends React.Component {
       contact,
       gender,
       type
-    }).then( ()=> {
+    }).then(() => {
       console.log("success")
       this.props.history.push("/dashboard");
     })
-    .catch(function (error) {
-      // An error happened.
-      console.log("errorrrrr", error.message)
-
-    });
+      .catch(function (error) {
+        // An error happened.
+        console.log("errorrrrr", error.message)
+      });
 
   };
   render() {

@@ -281,7 +281,7 @@ class Dashbaord extends React.Component {
             </div>
           ) : (
             <div style={{ margin: "auto", textAlign: "center" }}>
-              <p>Loading..</p>
+              <p>Loading...</p>
               <span className="spinner spinner-large"></span>
             </div>
           )}
