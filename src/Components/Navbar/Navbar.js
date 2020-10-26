@@ -9,7 +9,8 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import { AiOutlineLogout } from "react-icons/ai";
 import { MdDashboard } from "react-icons/md";
-import { IoMdLogIn  } from "react-icons/io";
+import { IoMdLogIn } from "react-icons/io";
+import Typography from '@material-ui/core/Typography';
 
 
 const useStyles = makeStyles(theme => ({
@@ -112,20 +113,20 @@ export default function PrimarySearchAppBar(props) {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      { props.loginValue ? 
+      { props.loginValue ?
         <div>
-          <MenuItem onClick={handleMenuClose, ()=> props.path1()}>
+          <MenuItem onClick={handleMenuClose, () => props.path1()}>
             <MdDashboard />
             &nbsp; Dashboard
           </MenuItem>
-          <MenuItem onClick={handleMenuClose, ()=> props.signOut()}>
+          <MenuItem onClick={handleMenuClose, () => props.signOut()}>
             <AiOutlineLogout />
             &nbsp; Log Out
           </MenuItem>
         </div>
-            : 
-          <MenuItem onClick={handleMenuClose, ()=> props.path()}>
-            <IoMdLogIn />
+        :
+        <MenuItem onClick={handleMenuClose, () => props.path()}>
+          <IoMdLogIn />
             &nbsp;
             Log In</MenuItem>
       }
@@ -162,18 +163,23 @@ export default function PrimarySearchAppBar(props) {
       <AppBar
         position="static"
         elevation="1"
-               style={{ backgroundColor:"#20B2AA"}}>
+        style={{ backgroundColor: "#20B2AA" }}>
+
         <Toolbar>
+          <Typography variant="h6" className={classes.title}>
+            SiteEye Attendance
+          </Typography>
+
           <IconButton
             edge="start"
             className={classes.menuButton}
             color="inherit"
             aria-label="open drawer"
           >
-                    </IconButton>
+          </IconButton>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-  
+
             <IconButton
               edge="end"
               aria-label="account of current user"
@@ -197,6 +203,7 @@ export default function PrimarySearchAppBar(props) {
             </IconButton>
           </div>
         </Toolbar>
+
       </AppBar>
       {renderMobileMenu}
       {renderMenu}

@@ -1,5 +1,5 @@
 import Login from "./Login/Login"
 import SignUp from "./SignUp/SignUp"
-import Dashbaord from "./Dashboard/Dashboard"
+import Dash from "./Dashboard/Dash"
 import EditPost from "./EditUser/EditUser"
-export { Login, SignUp, Dashbaord, EditPost};
+export { Login, SignUp, Dash, EditPost};

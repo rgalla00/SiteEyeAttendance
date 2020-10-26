@@ -7,9 +7,9 @@ import { FaUserTag, FaRegEdit } from "react-icons/fa";
 import Paper from "@material-ui/core/Paper";
 import Swal from "sweetalert2";
 import { firebaseApp } from "../../Config/Firebase/firebase";
-import "./Dashbaord.css";
+import "./Dash.css";
 
-class Dashbaord extends React.Component {
+class Dash extends React.Component {
   constructor() {
     super();
 
@@ -291,4 +291,4 @@ class Dashbaord extends React.Component {
   }
 }
 
-export default Dashbaord;
+export default Dash;

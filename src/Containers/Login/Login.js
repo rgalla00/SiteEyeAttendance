@@ -54,99 +54,99 @@ export default class SignIn extends React.Component {
           text: "Login failed: " + errorCode,
         });
       });
-  
-      // This code will add a user in firebase / you can change data
-      //firebaseApp.database().ref("users").push({
-      //    firstName: "Angie",
-      //    lastName: "John",
-      //    gender: "female",
-      //    email: "Angie@john.com",
-      //    contact: "+343454565789"
-      //  }).then((res)=>{
-      //    console.log("successful", res);
-      //  }).catch((error)=> {
-      //    console.log("unsuccessful", error);
-      //  })
-    };
 
-    signup = () => {
-      this.props.history.push("/signup");
-    };
+    // This code will add a user in firebase / you can change data
+    //firebaseApp.database().ref("users").push({
+    //    firstName: "Angie",
+    //    lastName: "John",
+    //    gender: "female",
+    //    email: "Angie@john.com",
+    //    contact: "+343454565789"
+    //  }).then((res)=>{
+    //    console.log("successful", res);
+    //  }).catch((error)=> {
+    //    console.log("unsuccessful", error);
+    //  })
+  };
 
-    render() {
-      return (
-        <div>
-          <Navbar
-            path={() => this.props.history.push("/")}
-            path1={() => this.props.history.push("/dashboard")}
-            path2={() => this.props.history.push("/signup")}
-            loginValue={this.state.loginValue}
-          />
-          <Container component="main" maxWidth="xs">
-            <CssBaseline />
-            <div
-              style={{
-                textAlign: "center",
-                marginTop: "10%",
-              }}
-            >
-              <Avatar className="avatar" style={{ backgroundColor: "red" }}>
-                <LockOutlinedIcon />
-              </Avatar>
-              <Typography component="h1" variant="h5">
-                Sign in
+  signup = () => {
+    this.props.history.push("/signup");
+  };
+
+  render() {
+    return (
+      <div>
+        <Navbar
+          path={() => this.props.history.push("/")}
+          path1={() => this.props.history.push("/dashboard")}
+          path2={() => this.props.history.push("/signup")}
+          loginValue={this.state.loginValue}
+        />
+        <Container component="main" maxWidth="xs">
+          <CssBaseline />
+          <div
+            style={{
+              textAlign: "center",
+              marginTop: "10%",
+            }}
+          >
+            <Avatar className="avatar" style={{ backgroundColor: "red" }}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              Sign in
             </Typography>
-              <form className="form" noValidate>
-                <TextField
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                  autoFocus
-                  onChange={(e) => this.setState({ email: e.target.value })}
-                />
-                <TextField
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="current-password"
-                  onChange={(e) => this.setState({ password: e.target.value })}
-                />
-                <br />
-                <br />
-                <Button
-                  type="button"
-                  fullWidth
-                  variant="contained"
-                  style={{ color: "#fff", backgroundColor: "#4db6ac" }}
-                  onClick={() => this.login()}
-                >
-                  Sign In
+            <form className="form" noValidate>
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                autoFocus
+                onChange={(e) => this.setState({ email: e.target.value })}
+              />
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                onChange={(e) => this.setState({ password: e.target.value })}
+              />
+              <br />
+              <br />
+              <Button
+                type="button"
+                fullWidth
+                variant="contained"
+                style={{ color: "#fff", backgroundColor: "#4db6ac" }}
+                onClick={() => this.login()}
+              >
+                Sign In
                 </Button>
-                <br />
-                <br />
-                <Button
-                  type="button"
-                  fullWidth
-                  variant="contained"
-                  style={{ color: "#fff", backgroundColor: "#4db6ac" }}
-                  onClick={() => this.signup()}
-                >
-                  Sign Up
+              <br />
+              <br />
+              <Button
+                type="button"
+                fullWidth
+                variant="contained"
+                style={{ color: "#fff", backgroundColor: "#4db6ac" }}
+                onClick={() => this.signup()}
+              >
+                Sign Up
               </Button>
-              </form>
-            </div>
-          </Container>
-        </div>
-      );
-    }
+            </form>
+          </div>
+        </Container>
+      </div>
+    );
   }
+}

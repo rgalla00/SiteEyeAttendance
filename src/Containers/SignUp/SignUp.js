@@ -11,21 +11,21 @@ import { Navbar } from "../../Components";
 import Swal from "sweetalert2";
 import "./SignUp.css";
 
-export default class SignIn extends React.Component {
+export default class SignUp extends React.Component {
   constructor() {
     super();
-    this.state = {
-      email: "",
-      password: "",
-    };
+    // this.state = {
+    //   email: "",
+    //   password: "",
+    // };
   }
 
   componentDidMount() {
-    this.props.history.push("/");
+    //this.props.history.push("/");
   }
 
   signup = () => {
-    const { email, password } = this.state;
+    //const { email, password } = this.state;
 
     //Create Account
     // firebaseApp.database().ref("users").push({
@@ -41,7 +41,7 @@ export default class SignIn extends React.Component {
     // })
 
     //Redirect to Login
-    this.props.history.push("/login");
+    this.props.history.push("/");
   };
 
   render() {
@@ -49,9 +49,10 @@ export default class SignIn extends React.Component {
       <div>
         <Navbar
           path={() => this.props.history.push("/")}
-          path1={() => this.props.history.push("/login")}
-          loginValue={this.state.loginValue}
+          //path1={() => this.props.history.push("/login")}
+          //loginValue={this.state.loginValue}
         />
+
         <Container component="main" maxWidth="xs">
           <CssBaseline />
           <div
