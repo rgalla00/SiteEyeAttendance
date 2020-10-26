@@ -32,7 +32,8 @@ export default class SignUp extends React.Component {
   }
 
   signup = () => {
-    const { email, password, passwordconf, firstName, lastName, gender, contact, type } = this.state;
+    const { email, password, passwordconf, firstName, lastName, gender, contact } = this.state;
+    var { type } = this.state.type;
 
     //All fields complete
     if (email === "" || password === "" || passwordconf === "" || firstName === "" || lastName === "" || gender === "" || contact === "") {
@@ -44,7 +45,7 @@ export default class SignUp extends React.Component {
       return;
     }
 
-    //Not a UAFS email
+    //UAFS email validation / Type setting
     if (!this.isUafsEmail(email)) {
       Swal.fire({
         icon: "error",
@@ -52,9 +53,14 @@ export default class SignUp extends React.Component {
         text: "Email must be from a UAFS domain..."
       });
       return;
+    } else {
+      if (email.endsWith("g.uafs.edu"))
+        type = "Student";
+      else
+        type = "Professor";
     }
 
-    //Not a phone number
+    //Phone number validation
     if (!this.isPhoneNumber(contact)) {
       Swal.fire({
         icon: "error",
@@ -90,7 +96,6 @@ export default class SignUp extends React.Component {
       return;
     });
 
-    //TODO: get type based on email
     //TODO: send email confirmation
 
     //Create Account
