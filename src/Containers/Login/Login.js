@@ -14,70 +14,86 @@ import "./Login.css";
 export default class SignIn extends React.Component {
   constructor() {
     super();
+
     this.state = {
       email: "",
-      password: "",
+      password: ""
     };
   }
 
   componentDidMount() {
-    firebaseApp.auth().onAuthStateChanged((user) => {
-      if (user) {
-        // User is signed in.
-        this.props.history.push("/dashboard");
-      } else {
-        // User is signed out.
-        this.props.history.push("/");
-      }
-    });
+    // firebaseApp.auth().onAuthStateChanged((user) => {
+    //   if (user) {
+    //     // User is signed in.
+    //     //TODO: redirect to the right page (Admin, Professor, or Student)
+    //     this.props.history.push("/dashboard");
+    //   } else {
+    //     // User is signed out.
+    //     this.props.history.push("/");
+    //   }
+    // });
   }
 
   login = () => {
     const { email, password } = this.state;
+    var success = false;
 
     //UAFS email validation 
-    if (!this.isUafsEmail(email)) {
-      Swal.fire({
-        icon: "error",
-        title: "Incorrect Email",
-        text: "Email must be from a UAFS domain..."
+    // if (!this.isUafsEmail(email)) {
+    //   Swal.fire({
+    //     icon: "error",
+    //     title: "Incorrect Email",
+    //     text: "Email must be from a UAFS domain..."
+    //   });
+    //   return;
+    // }
+
+    //TODO: encrypt/decrypt password
+    //Email doesn't already exist confirmation
+    const db = firebaseApp.database();
+    const users = db.ref('users');
+    const query = users.orderByChild('email').equalTo(email).limitToFirst(1);
+
+    query.on('value', function (snap) {
+      //Verification
+      snap.forEach(function (data) {
+        if (data.val().email === email && data.val().password === password) {
+          localStorage.setItem("uid", data.key);
+          success = true;
+        }
       });
+    });
+
+    //Redirect
+    if (success) {
+      Swal.fire("Login Succesful", "You may proceed!", "success");
+      //TODO: send to correct page, based on type (Professor, Student, or Admin)
+      this.props.history.push("/dashboard");
+    } else {
+      Swal.fire("Login Failure", "The email or password you entered is incorrect...", "error");
       return;
     }
 
-    firebaseApp
-      .auth()
-      .signInWithEmailAndPassword(email, password)
-      .then((res) => {
-        // console.log("Document successfully written!", res);
-        // console.log(res.user.uid)
-        localStorage.setItem("uid", res.user.uid);
-        Swal.fire("Login Succesful", "You may proceed!", "success");
-        this.props.history.push("/dashboard");
-      })
-      .catch((error) => {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        // console.log(errorCode, errorMessage)
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "Login failed: " + errorCode,
-        });
-      });
-
-    // This code will add a user in firebase / you can change data
-    //firebaseApp.database().ref("users").push({
-    //    firstName: "Angie",
-    //    lastName: "John",
-    //    gender: "female",
-    //    email: "Angie@john.com",
-    //    contact: "+343454565789"
-    //  }).then((res)=>{
-    //    console.log("successful", res);
-    //  }).catch((error)=> {
-    //    console.log("unsuccessful", error);
-    //  })
+    // firebaseApp
+    //   .auth()
+    //   .signInWithEmailAndPassword(email, password)
+    //   .then((res) => {
+    //     // console.log("Document successfully written!", res);
+    //     // console.log(res.user.uid)
+    //     localStorage.setItem("uid", res.user.uid);
+    //     Swal.fire("Login Succesful", "You may proceed!", "success");
+    //     this.props.history.push("/dashboard");
+    //   })
+    //   .catch((error) => {
+    //     var errorCode = error.code;
+    //     var errorMessage = error.message;
+    //     // console.log(errorCode, errorMessage)
+    //     Swal.fire({
+    //       icon: "error",
+    //       title: "Oops...",
+    //       text: "Login failed: " + errorCode,
+    //     });
+    //   });
   };
 
   signup = () => {

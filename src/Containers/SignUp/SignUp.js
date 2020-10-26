@@ -10,7 +10,6 @@ import Container from "@material-ui/core/Container";
 import { Navbar } from "../../Components";
 import Swal from "sweetalert2";
 import "./SignUp.css";
-import { queryByTestId } from "@testing-library/react";
 
 export default class SignUp extends React.Component {
   constructor() {
@@ -106,7 +105,8 @@ export default class SignUp extends React.Component {
     //   email: email,
     //   contact: contact,
     //   password: password,
-    //   type: type
+    //   type: type,
+    //   verified: "N"
     // }).then((res) => {
     //   console.log("successful", res);
     // }).catch((error) => {
