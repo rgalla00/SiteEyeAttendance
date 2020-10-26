@@ -24,7 +24,7 @@ the student could login digitally to a classroom and then disappear (removing ac
 attendance). Our solution to this is a hybrid between these two systems.
 
 When a student arrives in class (either physically or digitally), they must indicate
-they are here by logging into the SiteEye Attendance website/extension, if they're attending physically. If
+they are present by logging into the SiteEye Attendance website/extension, if they're attending physically. If
 attending digitally, the extension will automatically record a student's attendance by their logging
 into the lecture (Note: The scope of this project limits this automation to Blackboard Collaborate). This act of "indicating presence" then provides a notification to the teacher
 or lab assistant present for the class, who can then confirm the student presence with
