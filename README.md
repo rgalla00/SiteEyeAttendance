@@ -27,7 +27,7 @@ When a student arrives in class (either physically or digitally), they must indi
 they are present by logging into the SiteEye Attendance website/extension, if they're attending physically. If
 attending digitally, the extension will automatically record a student's attendance by their logging
 into the lecture (Note: The scope of this project limits this automation to Blackboard Collaborate). This act of "indicating presence" then provides a notification to the teacher
-or lab assistant present for the class, who can then confirm the student presence with
+or lab assistant present for the class, who can then confirm the student's presence with
 the press of a button. This off-loading of work on the teacher's end provides a more
 even spread of the workload required to maintain records of attendance. Addressing student attendance will provide a more accurate collection of data, regarding how often
 a student was on time for class, as well as allow for quicker dismissal from the
