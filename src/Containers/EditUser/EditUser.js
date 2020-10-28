@@ -56,7 +56,7 @@ class EditUser extends React.Component {
       password
     }).then(() => {
       console.log("success")
-      this.props.history.push("/dashboard");
+      this.props.history.push("/dash");
     })
     .catch(function (error) {
       // An error happened.
@@ -90,7 +90,7 @@ class EditUser extends React.Component {
       <React.Fragment>
         <Navbar
           path={() => this.props.history.push("/")}
-          path1={() => this.props.history.push("/dashboard")}
+          path1={() => this.props.history.push("/dash")}
           home={() => this.props.history.push("/")}
           loginValue="true"
           signOut={() => this.signout()}
