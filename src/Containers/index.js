@@ -3,4 +3,6 @@ import SignUp from "./SignUp/SignUp"
 import Dash from "./Dashboard/Dash"
 import EditPost from "./EditUser/EditUser"
 import Verify from "./Verification/Verification"
-export { Login, SignUp, Dash, EditPost, Verify };
+import Faculty from "./Faculty/Faculty"
+import EditClass from "./EditClass/EditClass"
+export { Login, SignUp, Dash, EditPost, Verify, Faculty, EditClass};

@@ -142,6 +142,7 @@ export default class SignIn extends React.Component {
           path={() => this.props.history.push("/")}
           path1={() => this.props.history.push("/dash")}
           path2={() => this.props.history.push("/signup")}
+          path3={() => this.props.history.push("/faculty")}
           loginValue={this.state.loginValue}
         />
         <Container component="main" maxWidth="xs">

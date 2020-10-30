@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { Login, SignUp, Dash, EditPost, Verify } from "../../Containers";
+import { Login, SignUp, Dash, EditPost, Verify, Faculty, EditClass } from "../../Containers";
 
 function MainRoute() {
   return (
@@ -11,6 +11,8 @@ function MainRoute() {
         <Route path="/dash" component={Dash} />
         <Route path="/edit-user" component={EditPost} />
         <Route path="/verify" component={Verify} />
+        <Route path="/faculty" component={Faculty} />
+        <Route path="/edit-class" component={EditClass} />
       </Switch>
     </Router>
   );
