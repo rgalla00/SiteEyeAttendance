@@ -119,7 +119,7 @@ class Faculty extends React.Component {
 
           firebaseApp
             .database()
-            .ref("/users/" + v.id)
+            .ref("/classes/" + v.id)
             .remove()
             .then(posts.splice(i, 1));
           this.setState({
