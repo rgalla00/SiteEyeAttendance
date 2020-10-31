@@ -5,4 +5,5 @@ import EditPost from "./EditUser/EditUser"
 import Verify from "./Verification/Verification"
 import Faculty from "./Faculty/Faculty"
 import EditClass from "./EditClass/EditClass"
-export { Login, SignUp, Dash, EditPost, Verify, Faculty, EditClass};
+import NewClass from "./NewClass/NewClass"
+export { Login, SignUp, Dash, EditPost, Verify, Faculty, EditClass, NewClass};

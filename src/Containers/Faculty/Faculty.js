@@ -1,6 +1,7 @@
 import React from "react";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
 import { Navbar } from "../../Components";
 import { MdDelete, MdEmail, MdContactMail, MdSchool, MdRoom } from "react-icons/md";
 import { FaUserTag, FaRegEdit, FaAppleAlt, FaClock } from "react-icons/fa";
@@ -226,6 +227,17 @@ class Faculty extends React.Component {
                 </div>
               ) : (
                 <Container>
+              <Button
+                type="button"
+                //fullWidth
+                variant="contained"
+                style={{ color: "#fff", backgroundColor: "#3b4b70" }}
+                onClick={() => this.props.history.push("/new-class")}
+              >
+                Add Class
+              </Button>
+              <br/>
+              <br/>
                   {this.state.posts.map((v, i) => {
                     return (
                       <Grid container justify-content center>
@@ -277,15 +289,18 @@ class Faculty extends React.Component {
                                   >
                                     Delete
                                   </span>
+                                  <br />
                                 </div>
-                              </Grid>
-                            </Grid>
+                              </Grid>                            
+                            </Grid>                           
                           </Paper>
                         </Grid>
                       </Grid>
+                      
                     );
                   })}
                 </Container>
+                
               )}
             </div>
           ) : (
