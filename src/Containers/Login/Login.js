@@ -10,7 +10,7 @@ import Container from "@material-ui/core/Container";
 import { Navbar } from "../../Components";
 import Swal from "sweetalert2";
 import "./Login.css";
-import md5 from 'crypto-md5';
+import md5 from 'crypto-js/md5';
 
 export default class SignIn extends React.Component {
   constructor() {
@@ -21,16 +21,14 @@ export default class SignIn extends React.Component {
       password: "",
       success: false,
       changed: false,
-      verified: false,
-      loginValue: false
+      verified: false
     };
   }
 
   componentDidMount() {
     var { success, changed, verified } = this.state;
     this.redirect(success, changed, verified);
-    const data = localStorage.getItem("uid")
-    console.log(data)
+
     //------------Old Approach-----------
     // firebaseApp.auth().onAuthStateChanged((user) => {
     //   if (user) {
@@ -86,17 +84,17 @@ export default class SignIn extends React.Component {
       //Verification
       snap.forEach(function (data) {
         var user = data.val();
-        console.log(user)
         var encryptedPass = md5(password);
 
         if (user.email === email && String(user.password) === String(encryptedPass)) {
           if (user.verified === "Y") {
             verified = true;
           }
-
-          localStorage.setItem("uid", data.key);
+		  if(user.type === "Admin"){
+			localStorage.setItem("uid", data.key);
           success = true;
           changed = true;
+		  }   
         } else {
           changed = true;
           success = false;
@@ -145,6 +143,7 @@ export default class SignIn extends React.Component {
           path={() => this.props.history.push("/")}
           path1={() => this.props.history.push("/dash")}
           path2={() => this.props.history.push("/signup")}
+		  path3={() => this.props.history.push("/faculty")}
           loginValue={this.state.loginValue}
         />
         <Container component="main" maxWidth="xs">
