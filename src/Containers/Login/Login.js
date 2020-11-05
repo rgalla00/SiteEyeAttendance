@@ -21,7 +21,8 @@ export default class SignIn extends React.Component {
       password: "",
       success: false,
       changed: false,
-      verified: false
+      verified: false,
+	  userType: false
     };
   }
 
@@ -42,10 +43,15 @@ export default class SignIn extends React.Component {
     // });
   }
 
-  redirect = (success, changed, verified) => {
+  redirect = (success, changed, userType, verified) => {
+	  console.log(success,changed,userType,verified)
     if (!changed)
       return;
 
+	if(!userType){
+	Swal.fire("Are you Admin?", "Please login with admin account,", "error");
+      return;
+	}
     if (!verified) {
       Swal.fire("Unverified Email", "The email you entered has not been verified! Check your spam...", "error");
       return;
@@ -62,7 +68,8 @@ export default class SignIn extends React.Component {
 
   login = () => {
     const { email, password } = this.state;
-    var { success, changed, verified } = this.state;
+    var { success, changed, verified, userType } = this.state;
+	var returnData={}
 
     //UAFS email validation 
     if (!this.isUafsEmail(email)) {
@@ -79,22 +86,51 @@ export default class SignIn extends React.Component {
     const users = db.ref('users');
     const query = users.orderByChild('email').equalTo(email).limitToFirst(1);
 
-    query.on('value', function (snap) {
+    query.on('value', (snap) =>{
       
       //Verification
-      snap.forEach(function (data) {
+      snap.forEach((data) => {
         var user = data.val();
         var encryptedPass = md5(password);
 
         if (user.email === email && String(user.password) === String(encryptedPass)) {
           if (user.verified === "Y") {
-            verified = true;
+			  console.log(user.verified)
+		   if (user.type !== "Admin"){
+			   returnData.success=false;
+			   returnData.verified=true;
+			   returnData.userType=false;
+			   returnData.changed=true;
+			return this.redirect(returnData.success, returnData.changed, returnData.userType, returnData.verified );
+		  }
+		  else {
+			  console.log(user.type)
+			   returnData.success=true;
+			   returnData.verified=true;
+			   returnData.userType=true;
+			   returnData.changed=true;
+			   console.log(returnData)
+			   return this.redirect(returnData.success, returnData.changed, returnData.userType, returnData.verified ); 
+		  }
           }
-		  if(user.type === "Admin"){
-			localStorage.setItem("uid", data.key);
+		  else{
+			   returnData.success=false;
+			   returnData.verified=false;
+			   returnData.userType=true;
+			   returnData.changed=true;
+			   console.log(returnData)
+			   return this.redirect(returnData.success, returnData.changed, returnData.userType, returnData.verified ); 
+		  }
+		  
+		
+		 
+		 
+		  localStorage.setItem("uid", data.key);
           success = true;
           changed = true;
-		  }   
+		  verified = true;
+		  userType = true
+	
         } else {
           changed = true;
           success = false;
@@ -102,7 +138,7 @@ export default class SignIn extends React.Component {
       });
     });
 
-    this.redirect(success, changed, verified);
+    
 
     //------------Old Approach-----------
     // firebaseApp
