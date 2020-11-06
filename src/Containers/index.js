@@ -4,6 +4,8 @@ import Dash from "./Dashboard/Dash"
 import EditPost from "./EditUser/EditUser"
 import Verify from "./Verification/Verification"
 import Faculty from "./Faculty/Faculty"
-import EditClass from "./EditClass/EditClass"
-import NewClass from "./NewClass/NewClass"
-export { Login, SignUp, Dash, EditPost, Verify, Faculty, EditClass, NewClass};
+import EditClass from "./Faculty/EditClass/EditClass"
+import NewClass from "./Faculty/NewClass/NewClass"
+import AddStudent from "./Faculty/AddStudent/AddStudent"
+import ListStudents from "./Faculty/ListStudents/ListStudents"
+export { Login, SignUp, Dash, EditPost, Verify, Faculty, EditClass, NewClass, AddStudent, ListStudents};

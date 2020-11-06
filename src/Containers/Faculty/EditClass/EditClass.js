@@ -1,6 +1,6 @@
 import React from "react";
-import { firebaseApp } from "../../Config/Firebase/firebase";
-import { Navbar } from "../../Components";
+import { firebaseApp } from "../../../Config/Firebase/firebase";
+import { Navbar } from "../../../Components";
 import Container from "@material-ui/core/Container";
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
@@ -22,7 +22,6 @@ class EditClass extends React.Component {
       professor: data.professor,
       room: data.room,
       start_time: data.start_time,
-      students: data.students,
       type: data.type
     });
   }
@@ -34,7 +33,6 @@ class EditClass extends React.Component {
       professor,
       room,
       start_time,
-      students,
       type
     } = this.state;
 
@@ -44,7 +42,6 @@ class EditClass extends React.Component {
       professor,
       room,
       start_time,
-      students,
       type
     }).then(() => {
       console.log("success")
@@ -205,21 +202,6 @@ class EditClass extends React.Component {
                   />
                 </Grid>
                 <Grid item xs={12}>
-                  <TextField
-                    disabled
-                    variant="outlined"
-                    fullWidth
-                    name="students"
-                    label="students"
-                    type="text"
-                    id="students"
-                    value={this.state.students}
-                    onChange={(e) =>
-                      this.setState({
-                        students: e.target.value,
-                      })
-                    }
-                  />
                 </Grid>
               </Grid>
               <br />

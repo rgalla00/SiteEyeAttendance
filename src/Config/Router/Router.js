@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { Login, SignUp, Dash, EditPost, Verify, Faculty, EditClass, NewClass } from "../../Containers";
+import { Login, SignUp, Dash, EditPost, Verify, Faculty} from "../../Containers";
+import { EditClass, NewClass, AddStudent, ListStudents } from "../../Containers/Faculty/..";
 
 function MainRoute() {
   return (
@@ -14,6 +15,8 @@ function MainRoute() {
         <Route path="/faculty" component={Faculty} />
         <Route path="/edit-class" component={EditClass} />
         <Route path="/new-class" component={NewClass} />
+        <Route path="/add-student" component={AddStudent} />
+        <Route path="/list-students" component={ListStudents} />
       </Switch>
     </Router>
   );

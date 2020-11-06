@@ -2,15 +2,15 @@ import React from "react";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
-import { Navbar } from "../../Components";
+import { Navbar } from "../../../Components";
 import { MdDelete, MdEmail, MdContactMail, MdSchool, MdRoom } from "react-icons/md";
-import { FaUserAlt, FaRegEdit, FaAppleAlt, FaClock, FaUserPlus } from "react-icons/fa";
+import { FaUserTag, FaRegEdit, FaAppleAlt, FaClock, FaUserPlus } from "react-icons/fa";
 import Paper from "@material-ui/core/Paper";
 import Swal from "sweetalert2";
-import { firebaseApp } from "../../Config/Firebase/firebase";
-import "./Faculty.css";
+import { firebaseApp } from "../../../Config/Firebase/firebase";
+import "./ListStudents.css";
 
-class Faculty extends React.Component {
+class ListStudents extends React.Component {
   constructor() {
     super();
 
@@ -40,23 +40,14 @@ class Faculty extends React.Component {
   }
 
   componentDidMount() {
-    // firebaseApp.auth().onAuthStateChanged((user) => {
-    //   if (user) {
-    //     // console.log("user =>>>>", user.uid);
-    //     this.setState({
-    //       authoruid: user.uid,
-    //     });
-    //     this.props.history.push("/dash");
-    //   } else {
-    //     this.props.history.push("/");
-    //   }
-    // });
 
     let { posts } = this.state;
 
     firebaseApp
       .database()
-      .ref("classes")
+      .ref("users")
+      .orderByChild("type")
+      .equalTo("Student")
       .once("value", (res) => {
         res.forEach((v) => {
           var data = v.val();
@@ -67,27 +58,6 @@ class Faculty extends React.Component {
       });
     console.log(posts);
   }
-
-
-  signout = () => {
-    localStorage.setItem("uid", "");
-    this.props.history.push("/");
-    // firebaseApp
-    //   .auth()
-    //   .signOut()
-    //   .then(function () {
-    //     // Sign-out successful.
-    //     this.props.history.push("/");
-    //     Swal.fire({
-    //       icon: "success",
-    //       title: "Logout Successful",
-    //       text: "Something went wrong!",
-    //     });
-    //   })
-    //   .catch(function (error) {
-    //     // An error happened.
-    //   });
-  };
 
   delete = (v, i) => {
     const swalWithBootstrapButtons = Swal.mixin({
@@ -120,7 +90,7 @@ class Faculty extends React.Component {
 
           firebaseApp
             .database()
-            .ref("/classes/" + v.id)
+            .ref("/users/" + v.id)
             .remove()
             .then(posts.splice(i, 1));
           this.setState({
@@ -164,7 +134,7 @@ class Faculty extends React.Component {
             fileName: fileName,
           })
           .then((res) => {
-            this.props.history.push("/faculty");
+            this.props.history.push("/list-students");
             this.setState({
               title: " ",
               description: " ",
@@ -199,7 +169,7 @@ class Faculty extends React.Component {
       <div className="profile">
         <Navbar
           path={() => this.props.history.push("/")}
-          path1={() => this.props.history.push("/faculty")}
+          path1={() => this.props.history.push("/list-students")}
           home={() => this.props.history.push("/")}
           loginValue="true"
           signOut={() => this.signout()}
@@ -209,7 +179,7 @@ class Faculty extends React.Component {
                     textAlign: "center",
                     padding: "20px 0",
                     fontSize: "300%",
-          }}>Faculty Page
+          }}>Students
         </div>
 
         <div>
@@ -233,9 +203,9 @@ class Faculty extends React.Component {
                 //fullWidth
                 variant="contained"
                 style={{ color: "#fff", backgroundColor: "#3b4b70" }}
-                onClick={() => this.props.history.push("/new-class")}
+                onClick={() => this.props.history.push("/add-student")}
               >
-                Add Class
+                Add Students
               </Button>
               <br/>
               <br/>
@@ -249,58 +219,23 @@ class Faculty extends React.Component {
                               <Grid item lg={3} sm={12} md={6}>
                                 &nbsp; &nbsp;
                                 <MdSchool size={15} />
-                                <span className="text">{v.name}</span>
+                                <span className="text">{v.firstName + " " + v.lastName + " " + "(" + v.prefName + ")" }</span>
                               </Grid>
 
                               <Grid item lg={3} sm={12} md={6}>
                                 &nbsp; &nbsp;
                                 <FaAppleAlt size={15} />
-                                <span className="text">{v.professor}</span>
+                                <span className="text">{v.email}</span>
                               </Grid>
 
                               <Grid item lg={3} sm={12} md={6}>
                                 &nbsp; &nbsp;
                                 <MdRoom size={15} />
-                                <span className="text">{v.room}</span>
-                              </Grid>
-
-                              <Grid item lg={3} sm={12} md={6}>
-                                &nbsp; &nbsp;
-                                <FaClock size={15} />
-                                <span className="text">{v.start_time}</span>
+                                <span className="text">{v.contact}</span>
                               </Grid>
 
                               <Grid item lg={12} sm={12} md={4}>
                                 <div style={{ float: "right" }}>
-                                  <FaRegEdit size={20} />
-
-                                  <span
-                                    className="edit-btn"
-                                    onClick={() => {
-                                      this.props.history.push("/edit-class", v);
-                                      console.log(v);
-                                    }}
-                                  >
-                                    Edit &nbsp;
-                                  </span>
-                                  <MdDelete color="#b55039" size={20} />
-                                  <span
-                                    className="delete-btn"
-                                    onClick={() => this.delete(v, i)}
-                                  >
-                                    Delete &nbsp;
-                                  </span>
-                                  <FaUserAlt size={20} />
-                                  <span
-                                    className="edit-btn"
-                                    onClick={() => {
-                                      this.props.history.push("/list-students", v);
-                                      console.log(v);
-                                    }}
-                                  >
-                                    Students
-                                  </span>
-                                  <br />
                                 </div>
                               </Grid>                            
                             </Grid>                           
@@ -326,4 +261,4 @@ class Faculty extends React.Component {
   }
 }
 
-export default Faculty;
+export default ListStudents;

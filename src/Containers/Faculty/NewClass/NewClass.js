@@ -6,9 +6,9 @@ import TextField from "@material-ui/core/TextField";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import { MdAddCircle} from "react-icons/md";
 import Typography from "@material-ui/core/Typography";
-import { firebaseApp } from "../../Config/Firebase/firebase";
+import { firebaseApp } from "../../../Config/Firebase/firebase";
 import Container from "@material-ui/core/Container";
-import { Navbar } from "../../Components";
+import { Navbar } from "../../../Components";
 import Swal from "sweetalert2";
 import "./NewClass.css";
 import md5 from 'crypto-js/md5';
@@ -23,7 +23,6 @@ export default class NewClass extends React.Component {
       professor: "",
       room: "",
       start_time: "",
-      students: "",
       type: "",
     };
   }
@@ -33,11 +32,11 @@ export default class NewClass extends React.Component {
   }
 
   newclass = () => {
-    const { end_time, name, professor, room, start_time, students, type } = this.state;
+    const { end_time, name, professor, room, start_time, type } = this.state;
     //var { type } = this.state.type;
 
     //All fields complete
-    if (end_time === "" || name === "" || professor === "" || room === "" || start_time === "" || students === "" || type === "") {
+    if (end_time === "" || name === "" || professor === "" || room === "" || start_time === "" || type === "") {
       Swal.fire({
         icon: "error",
         title: "Incomplete Form",
@@ -53,7 +52,6 @@ export default class NewClass extends React.Component {
       professor: professor,
       room: room,
       start_time: start_time,
-      students: students,
       type: type
     }).then((res) => {
       console.log("successful", res);
@@ -93,7 +91,7 @@ export default class NewClass extends React.Component {
               <TextField
                 variant="outlined"
                 margin="normal"
-                required
+              //  required
                 fullWidth
                 id="name"
                 label="Class Name"
@@ -105,7 +103,7 @@ export default class NewClass extends React.Component {
               <TextField
                 variant="outlined"
                 margin="normal"
-                required
+              //  required
                 fullWidth
                 name="professor"
                 label="Professor"
@@ -117,7 +115,7 @@ export default class NewClass extends React.Component {
               <TextField
                 variant="outlined"
                 margin="normal"
-                required
+              //  required
                 fullWidth
                 name="Classroom"
                 label="Classroom"
@@ -129,7 +127,7 @@ export default class NewClass extends React.Component {
               <TextField
                 variant="outlined"
                 margin="normal"
-                required
+               // required
                 fullWidth
                 id="start_time"
                 label="Start Time"
@@ -140,7 +138,7 @@ export default class NewClass extends React.Component {
               <TextField
                 variant="outlined"
                 margin="normal"
-                required
+                //required
                 fullWidth
                 id="end_time"
                 label="End Time"
@@ -152,23 +150,12 @@ export default class NewClass extends React.Component {
                 variant="outlined"
                 margin="normal"
                 fullWidth
-                required
+                //required
                 id="type"
                 label="Class Type"
                 name="type"
                 //autoComplete="type"
                 onChange={(e) => this.setState({ type: e.target.value })}
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="students"
-                label="Students"
-                name="students"
-                //autoComplete="students"
-                onChange={(e) => this.setState({ students: e.target.value })}
               />
               <br />
               <br />
