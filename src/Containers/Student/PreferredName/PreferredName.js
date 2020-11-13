@@ -8,13 +8,11 @@ import { FaUserTag, FaRegEdit, FaAppleAlt, FaClock, FaUserPlus } from "react-ico
 import Paper from "@material-ui/core/Paper";
 import Swal from "sweetalert2";
 import { firebaseApp } from "../../../Config/Firebase/firebase";
-import "./DisputeEntry.css";
+import "./PreferredName.css";
 
-//this will also hold the functionality to provide reason for absence
-
-class DisputeEntry extends React.Component {
+class PreferredName extends React.Component {
 
 
 }
 
-export default DisputeEntry;
+export default PreferredName;
